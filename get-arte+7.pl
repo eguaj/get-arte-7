@@ -49,7 +49,7 @@ if( ! $response->is_success ) {
 }
 $content = $response->content;
 
-my ($videoFrUrl) = ($content =~ m|<video\s+lang="fr"\s+ref="([^"]+)"/>|ms);
+my ($videoFrUrl) = ($content =~ m|<video\s+lang="fr"\s+ref="([^"]+)"\s*/>|ms);
 if( not defined $videoFrUrl ) {
     print STDERR sprintf("Could not find videoFrUrl!\n");
     exit( 4 );
