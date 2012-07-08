@@ -73,8 +73,8 @@ if( not defined $videoUrl ) {
 print STDERR sprintf("Fetching videoUrl '%s' into file '%s'\n", $videoUrl, $outFile);
 
 my @cmd = ('rtmpdump', '-r', $videoUrl, '-o', $outFile, '-e');
-my $ret = 1;
-while( $ret != 0 ) {
+my $ret = 2;
+while( $ret == 2 ) {
     system(@cmd);
     $ret = $?;
     if( $ret == -1 ) {
@@ -83,4 +83,7 @@ while( $ret != 0 ) {
     }
 }
 
-exit( 0 );
+if( $ret != 0 ) {
+	print STDERR sprintf("rtmpdump returned with error code '%s'\n", $ret);
+}
+exit( $ret );
