@@ -3,6 +3,12 @@
 use strict;
 use warnings;
 use LWP::UserAgent;
+use Getopt::Long;
+
+my $convert_to_mp4 = undef;
+my $result = GetOptions(
+    "mp4" => \$convert_to_mp4
+    );
 
 my $page_url = shift;
 my $outFile = shift;
@@ -85,5 +91,20 @@ while( $ret == 2 ) {
 
 if( $ret != 0 ) {
 	print STDERR sprintf("rtmpdump returned with error code '%s'\n", $ret);
+	exit( $ret );
 }
-exit( $ret );
+
+if( $convert_to_mp4 ) {
+    (my $outFileMP4 = $outFile) =~ s/\.flv$/.mp4/;
+    @cmd = ('ffmpeg', '-i', $outFile, '-acodec', 'copy', '-vcodec', 'copy', '-f', 'mp4', $outFileMP4);
+    system(@cmd);
+    $ret = $?;
+    if( $ret != 0) {
+	print STDERR sprintf("Could not convert '%s' to '%s'!\n", $outFile, $outFileMP4);
+	unlink($outFile);
+	exit($ret);
+    }
+    unlink($outFile);
+}
+
+exit(0);
