@@ -17,7 +17,7 @@ if( not defined $page_url ) {
 
 if( not defined $outFile ) {
     ($outFile) = ($page_url =~ m|.*/([^/]+)$|);
-    $outFile =~ s/\.[a-z0-9]+$//i;
+    $outFile =~ s/\?.*$//i;
     $outFile = sprintf("%s.mp4", $outFile);
 }
 
