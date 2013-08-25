@@ -1,9 +1,4 @@
 Usage:
 
-  $ perl get-arte+7.pl [--mp4] <page_url>
+  $ perl get-arte+7.pl <page_url>
 
-Options:
-
-  --mp4
-    Use ffmpeg to convert the resulting .flv file to a .mp4 file
-    (suitable for viewing on iPad/iPhone devices).

@@ -51,7 +51,7 @@ if( not defined $url ) {
     print STDERR sprintf("Could not find 'HTTP_REACH_EQ_1' URL!\n");
     exit( 4 );
 }
-my @cmd = ('wget', '-O', $outFile, '-c', $url);
+my @cmd = ('wget', '-O', $outFile, '-c', '--no-use-server-timestamps', $url);
 print STDERR sprintf("Fetching URL '%s' into file '%s'\n", $url, $outFile);
 system(@cmd);
 my $ret = $?;
