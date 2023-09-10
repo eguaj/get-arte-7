@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use Mozilla::CA;
 use LWP::UserAgent;
 use List::Util qw(any);
 use File::Basename qw(dirname basename);
