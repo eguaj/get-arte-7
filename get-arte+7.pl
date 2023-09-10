@@ -60,6 +60,12 @@ if (not defined $outFile) {
     printf("Output to '%s'\n", $outFile);
 }
 
+if (-e $outFile) {
+    printf("Output file '%s' already exists!\n", $outFile);
+    printf("Skipping download.\n");
+    exit(0);
+}
+
 my ($videoId) = ($pageUrl =~ m|.*/videos/([^/]+)/.*|);
 if (not defined $videoId) {
     print STDERR sprintf("Error: could not get videoId from page URL '%s'!\n", $pageUrl);
