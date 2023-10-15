@@ -116,20 +116,20 @@ if (!$response->is_success) {
 }
 $content = $response->content;
 
-my ($videoUrl) = ($content =~ m|^(medias/[^.]+_v\Q${videoQuality}\E)\.m3u8$|m);
+my ($videoUrl) = ($content =~ m|^(https://.*/medias/[^.]+_v\Q${videoQuality}\E)\.m3u8$|m);
 if (not defined $videoUrl) {
     print STDERR sprintf("Error: could not find video URL with quality '%s'!\n", $videoQuality);
     exit(1);
 }
-$videoUrl = sprintf("%s/%s.mp4", $baseUrl, $videoUrl);
+$videoUrl = sprintf("%s.mp4", $videoUrl);
 printf("videoUrl = %s\n", $videoUrl);
 
-my ($audioUrl) = ($content =~ m|\bTYPE=AUDIO\b.*?\bURI="(medias/[^"]+)\.m3u8"|m);
+my ($audioUrl) = ($content =~ m|\bTYPE=AUDIO\b.*?\bURI="(https://[^"]+/medias/[^"]+)\.m3u8"|m);
 if (not defined $audioUrl) {
     print STDERR sprintf("Error: could not find audio URL!\n");
     exit(1);
 }
-$audioUrl = sprintf("%s/%s.mp4", $baseUrl, $audioUrl);
+$audioUrl = sprintf("%s.mp4", $audioUrl);
 printf("audioUrl = %s\n", $audioUrl);
 
 my $audioFile = sprintf("%s.audio", basename($audioUrl));
